@@ -19,4 +19,6 @@ class PaymentPage:
 
     def order_placed_heading(self):
         return self.page.locator('[data-qa="order-placed"]').get_by_text("Order Placed!")
-        
+
+    def click_download_invoice(self):
+         self.page.locator("a.btn.check_out").get_by_text("Download Invoice").click()
