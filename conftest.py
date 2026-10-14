@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import Page
+from playwright.sync_api import Playwright
 from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
 from pages.cart_page import CartPage
@@ -77,3 +78,12 @@ def logged_in_with_product(logged_in):
     products_page.click_view_cart()
 
     return logged_in
+
+@pytest.fixture
+def api_request(playwright: Playwright):
+
+    request_context = playwright.request.new_context()
+
+    yield request_context
+
+    request_context.dispose()
