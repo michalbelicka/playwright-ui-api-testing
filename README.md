@@ -24,6 +24,7 @@ The current UI test suite covers:
 - Product quantity
 - Product search
 - Product details
+- Checkout and order confirmation
 
 ## Project Structure
 
