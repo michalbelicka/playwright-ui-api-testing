@@ -3,7 +3,7 @@ from pages.checkout_page import CheckoutPage
 from pages.payment_page import PaymentPage
 from playwright.sync_api import expect
 
-def test_checkout(logged_in_with_product):
+def test_checkout_and_order_confirmation(logged_in_with_product):
 
     cart_page = CartPage(logged_in_with_product)
     checkout_page = CheckoutPage(logged_in_with_product)
