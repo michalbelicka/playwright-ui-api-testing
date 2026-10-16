@@ -71,7 +71,9 @@ def logged_in_with_product(logged_in):
 
     products_page = ProductsPage(logged_in)
 
-    products_page.click_products()
+    # products_page.click_products()
+
+    logged_in.goto("https://www.automationexercise.com/products")
 
     if "google_vignette" in logged_in.url:
         cart_page.close_ad()
