@@ -34,7 +34,6 @@ def test_get_all_products(api_request):
         assert "usertype" in product["category"]
         assert isinstance(product["category"]["usertype"], dict)
         
-
         assert "category" in product["category"]
         assert isinstance(product["category"]["category"], str)
 
