@@ -73,7 +73,8 @@ def logged_in_with_product(logged_in):
 
     products_page.click_products()
 
-    cart_page.close_ad()
+    if "google_vignette" in logged_in.url:
+        cart_page.close_ad()
 
     products_page.add_product_to_cart("Blue Top")
 
