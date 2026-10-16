@@ -17,11 +17,24 @@ def test_get_all_products(api_request):
 
     for product in products:
         assert "id" in product
+        assert isinstance(product["id"], int)
+
         assert "name" in product
+        assert isinstance(product["name"], str)
+
         assert "price" in product
+        assert isinstance(product["price"], str)
+
         assert "brand" in product
+        assert isinstance(product["brand"], str)
+
         assert "category" in product
+        assert isinstance(product["category"], dict)
 
         assert "usertype" in product["category"]
+        assert isinstance(product["category"]["usertype"], dict)
+        
+
         assert "category" in product["category"]
+        assert isinstance(product["category"]["category"], str)
 
