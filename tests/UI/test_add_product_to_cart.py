@@ -15,6 +15,8 @@ def test_add_product_to_cart(logged_in_and_empty_cart):
 
     products_page.add_product_to_cart("Blue Top")
 
+    cart_page.close_ad()
+
     expect(products_page.added_heading()).to_be_visible()
 
     products_page.click_view_cart()

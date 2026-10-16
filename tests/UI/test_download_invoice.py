@@ -15,6 +15,8 @@ def test_download_invoice(logged_in_with_product):
 
     checkout_page.click_place_order()
 
+    cart_page.close_ad()
+
     payment_page.fill_payment_details(
             name="Test User",
             card_number="4242424242424242",

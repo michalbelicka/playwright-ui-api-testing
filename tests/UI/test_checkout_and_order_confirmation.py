@@ -28,6 +28,8 @@ def test_checkout_and_order_confirmation(logged_in_with_product):
     checkout_page.click_place_order()
 
     cart_page.close_ad()
+    if "google_vignette" in logged_in_with_product.url:
+            cart_page.close_ad()
 
     expect(payment_page.payment_heading()).to_be_visible()
 
