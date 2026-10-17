@@ -18,6 +18,8 @@ def test_post_search_product(api_request):
 
     assert isinstance(products, list)
 
+    assert len(products) > 0
+
     for product in products:
 
         assert "Top" in product["name"] or "Shirt" in product["name"]
