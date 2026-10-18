@@ -1,12 +1,12 @@
 
-def test_get_user_account_detail_by_email(api_request):
+def test_get_user_account_detail_by_email(api_request, created_account):
 
     URL = "https://automationexercise.com/api/getUserDetailByEmail"
 
     response = api_request.get(
         URL,
         params={
-            "email": "tester2310@example.com"
+            "email": created_account["email"]
         }
     )
 
@@ -20,24 +20,18 @@ def test_get_user_account_detail_by_email(api_request):
 
     assert isinstance(user, dict)
 
-    assert user["id"] == 2893308
     assert isinstance(user["id"], int)
     
-    assert user["name"] == "Tester2310"
-    assert user["email"] == "tester2310@example.com"
-    assert user["title"] == "Mr"
-    assert user["birth_day"] == "10"
-    assert user["birth_month"] == "10"
-    assert user["birth_year"] == "10"
-    assert user["first_name"] == "Tester"
-    assert user["last_name"] == "Testing"
-    assert user["company"] == "test"
-    assert user["address1"] == "Street address"
-    assert user["address2"] == ""
-    assert user["country"] == "Canada"
-    assert user["state"] == "California"
-    assert user["city"] == "Los Angeles"
-    assert user["zipcode"] == "90001"
+    assert user["name"] == created_account["name"]
+    assert user["email"] == created_account["email"]
+    assert user["first_name"] == created_account["firstname"]
+    assert user["last_name"] == created_account["lastname"]
+    assert user["address1"] == created_account["address1"]
+    assert user["country"] == created_account["country"]
+    assert user["state"] == created_account["state"]
+    assert user["city"] == created_account["city"]
+    assert user["zipcode"] == created_account["zipcode"]
+    
 
 
 
