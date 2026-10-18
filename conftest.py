@@ -5,6 +5,7 @@ from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
 from pages.cart_page import CartPage
 from pages.products_page import ProductsPage
+import random
 
 @pytest.fixture
 def home_page(page: Page):
@@ -92,3 +93,49 @@ def api_request(playwright: Playwright):
     yield request_context
 
     request_context.dispose()
+
+@pytest.fixture
+def created_account(api_request):
+
+    URL_POST = "https://automationexercise.com/api/createAccount"
+    URL_DELETE = "https://automationexercise.com/api/deleteAccount"
+
+    payload = {
+        "email": f"random_tester{random.randint(1000, 9999)}@example.com",
+        "password": "password",
+        "name": f"randomname{random.randint(500, 9999)}",
+        "firstname": "test user",
+        "lastname": "test user",
+        "address1": "test address",
+        "country": "test country",
+        "state": "test state",
+        "city": "test city",
+        "zipcode": "zipcode",
+        "mobile_number": "mobile_number"
+    }
+
+    response = api_request.post(URL_POST, form=payload)
+
+    assert response.status == 200
+
+    response_json = response.json()
+
+    assert response_json["responseCode"] == 201
+
+    assert response_json["message"] == "User created!"
+
+    yield payload
+
+    response = api_request.delete(
+        URL_DELETE,
+        form={
+            "email": payload["email"],
+            "password": payload["password"]
+        }
+    )
+
+    response_json = response.json()
+
+    assert response_json["responseCode"] == 200
+
+
