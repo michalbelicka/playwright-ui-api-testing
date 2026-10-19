@@ -6,6 +6,7 @@ from pages.signup_page import SignupPage
 from pages.cart_page import CartPage
 from pages.products_page import ProductsPage
 import random
+from pathlib import Path
 
 @pytest.fixture
 def home_page(page: Page):
@@ -137,5 +138,29 @@ def created_account(api_request):
     response_json = response.json()
 
     assert response_json["responseCode"] == 200
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+
+        if "page" in item.funcargs:
+            page = item.funcargs["page"]
+
+            if not page.is_closed():
+                project_root = Path(__file__).resolve().parent
+
+                screenshot_dir = project_root / "screenshots"
+
+                screenshot_dir.mkdir(exist_ok=True)
+
+                screenshot_path = screenshot_dir / f"{item.name}.png"
+
+                page.screenshot(path=str(screenshot_path))
+
+
 
 
