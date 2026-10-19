@@ -1,19 +1,21 @@
-# Playwright UI Testing
+# Playwright UI & API Testing
 
-UI test automation project built with **Python, Playwright and pytest**.
+UI & API test automation project built with **Python, Playwright and pytest**.
 
-The project focuses on automated testing of the [Automation Exercise](https://www.automationexercise.com/) e-commerce website and demonstrates practical use of **Page Object Model (POM)**, pytest fixtures, reusable test methods and automated test execution with **GitHub Actions**.
+The project focuses on automated testing of the [Automation Exercise](https://www.automationexercise.com/) e-commerce website and demonstrates practical use of **Page Object Model (POM)**, pytest fixtures, parametrize, reusable test methods and automated test execution with **GitHub Actions**.
 
 ## Tech Stack
 
 - Python
 - Playwright
-- pytest
+- pytest (fixtures, parametrization, hooks)
 - Page Object Model (POM)
-- GitHub Actions
+- GitHub Actions CI pipeline
 - Git / GitHub
 
 ## Test Coverage
+
+### UI Tests
 
 The current UI test suite covers:
 
@@ -25,31 +27,46 @@ The current UI test suite covers:
 - Product search
 - Product details
 - Checkout and order confirmation
+- Payment workflow
+- Invoice download and content verification
+
+### API Tests
+
+The API test suite uses Playwright's APIRequestContext and covers:
+
+- Retrieving all products
+- Retrieving all brands
+- Searching for products
+- Handling requests with missing parameters
+- Retrieving user account details by email
+- Verifying login credentials
+- Creating user accounts
+- Updating user account details
+- Deleting user accounts
+- Verifying HTTP status codes and API response codes
+- Validating response messages, JSON structure, field names and data types
 
 ## Project Structure
 
 ```text
-playwright-ui-testing/
+playwright-ui-api-testing/
 │
 ├── pages/
 │   ├── cart_page.py
 │   ├── login_page.py
 │   ├── products_page.py
 │   ├── product_details_page.py
-│   └── signup_page.py
-│
+│   |── signup_page.py
+│   ├── checkout_page.py
+|   └── payment_page.py
+|
 ├── tests/
-│   └── UI/
-│       ├── test_signup_and_delete_account.py
-│       ├── test_valid_login.py
-│       ├── test_invalid_login.py
-│       ├── test_logout.py
-│       ├── test_add_product_to_cart.py
-│       ├── test_remove_product_from_cart.py
-│       ├── test_search_product.py
-│       ├── test_product_details.py
-│       └── test_quantity.py
-│
+│   |── UI/
+│   |
+|   └── API/
+|
+|── pytest.ini
+|── .gitignore
 ├── conftest.py
 ├── requirements.txt
 ├── TEST_PLAN.md
@@ -58,19 +75,22 @@ playwright-ui-testing/
 
 ## Test Design
 
-The project uses the **Page Object Model (POM)** to separate test logic from page-specific interactions.
+The project uses the Page Object Model (POM) to separate UI test logic from page-specific interactions.
 
 Reusable pytest fixtures are used to prepare common test states, such as:
 
 - Opening the website and handling the cookie banner
 - Logging in
 - Starting with an empty shopping cart
+- Creating test user accounts and cleaning them up after API tests
 
-This keeps the test cases focused on the behavior being verified while reducing duplicated setup code.
+UI tests focus on user interactions and expected application behavior, while API tests verify endpoint responses, status codes, response data and data types.
+
+This approach promotes code reusability, reduces duplicated setup code and keeps test cases focused on the behavior being verified.
 
 ## CI/CD
 
-Tests are integrated with **GitHub Actions** and are automatically executed:
+The project uses GitHub Actions to automatically run UI and API tests:
 
 - On every push
 - On pull requests
@@ -78,25 +98,30 @@ Tests are integrated with **GitHub Actions** and are automatically executed:
 
 The workflow:
 
-1. Sets up Python
-2. Installs project dependencies
-3. Installs Playwright browsers
-4. Runs code quality checks
-5. Executes the automated test suite
+1. Sets up Python and installs project dependencies
+2. Installs the required Playwright browsers
+3. Runs code quality checks
+4. Executes the automated test suite
+5. Generates an HTML test report
+6. Captures screenshots when UI tests fail
+7. Uploads the HTML report and failure screenshots as downloadable workflow artifacts
+
+This helps verify that tests continue to pass after code changes and makes it easier to investigate test failures.
 
 ## Future Improvements
 
-- Add API test coverage using Playwright APIRequestContext
+- Expand API test coverage
 - Expand UI test coverage
 - Add more advanced test scenarios
+- Explore AI-assisted and agentic testing approaches
 
 ## How to Run
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/michalbelicka/playwright-ui-testing.git
-cd playwright-ui-testing
+git clone https://github.com/michalbelicka/playwright-ui-api-testing.git
+cd playwright-ui-api-testing
 ```
 
 Install dependencies:
@@ -114,5 +139,5 @@ playwright install
 Run the tests:
 
 ```bash
-pytest
+pytest -v
 ```
