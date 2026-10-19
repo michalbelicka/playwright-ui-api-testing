@@ -2,7 +2,7 @@
 
 UI & API test automation project built with **Python, Playwright and pytest**.
 
-The project focuses on automated testing of the [Automation Exercise](https://www.automationexercise.com/) e-commerce website and demonstrates practical use of **Page Object Model (POM)**, pytest fixtures, parametrize, reusable test methods and automated test execution with **GitHub Actions**.
+The project focuses on automated testing of the [Automation Exercise](https://www.automationexercise.com/) e-commerce website and demonstrates practical use of **Page Object Model (POM)**, pytest fixtures, parametrization, hooks, reusable test methods and automated test execution with **GitHub Actions**.
 
 ## Tech Stack
 
