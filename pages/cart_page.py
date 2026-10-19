@@ -26,7 +26,7 @@ class CartPage:
         return self.page.locator(".cart_description", has_text=product_name)
 
     def close_ad(self):
-        close_button = self.page.locator("#dismiss-button")
+        close_button = self.page.locator(".continue-prompt-text").get_by_text("Close")
 
         if close_button.is_visible():
             close_button.click()
