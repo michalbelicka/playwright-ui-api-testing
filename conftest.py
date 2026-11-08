@@ -160,7 +160,3 @@ def pytest_runtest_makereport(item, call):
                 screenshot_path = screenshot_dir / f"{item.name}.png"
 
                 page.screenshot(path=str(screenshot_path))
-
-
-
-
