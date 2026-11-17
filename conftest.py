@@ -7,9 +7,15 @@ from pages.cart_page import CartPage
 from pages.products_page import ProductsPage
 import random
 from pathlib import Path
+import re
 
 @pytest.fixture
 def home_page(page: Page):
+
+    page.route(
+        re.compile(r".*(googlesyndication|doubleclick|googleadservices|adtrafficquality).*"),
+        lambda route: route.fulfill(status=200, body="")
+    )
 
     page.goto("https://www.automationexercise.com/")
     

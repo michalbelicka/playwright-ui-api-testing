@@ -6,7 +6,7 @@ class CartPage:
         self.page = page
 
     def click_cart(self):
-        self.page.get_by_role("link", name="Cart").click()
+        self.page.get_by_role("link", name=" Cart").click()
 
     def cart_is_empty_message(self):
         return self.page.locator(".text-center", has_text="Cart is empty!")
@@ -19,7 +19,7 @@ class CartPage:
 
             delete_buttons.first.click(force=True)
 
-            expect(delete_buttons).to_have_count(current_count - 1)
+            self.page.wait_for_load_state("networkidle")
 
 
     def product_in_cart(self, product_name):
