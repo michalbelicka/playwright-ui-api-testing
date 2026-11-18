@@ -12,6 +12,8 @@ import re
 @pytest.fixture
 def home_page(page: Page):
 
+    page.set_viewport_size({"width": 1920, "height": 1080})
+
     page.route(
         re.compile(r".*(googlesyndication|doubleclick|googleadservices|adtrafficquality).*"),
         lambda route: route.fulfill(status=200, body="")
@@ -49,8 +51,6 @@ def logged_in_and_empty_cart(logged_in):
 
     cart_page.empty_cart()
 
-    cart_page.close_ad()
-
     return logged_in
 
 @pytest.fixture
@@ -61,8 +61,6 @@ def empty_cart(home_page):
     cart_page.click_cart()
     
     cart_page.empty_cart()
-    
-    cart_page.close_ad()
 
     return home_page
 
@@ -74,17 +72,10 @@ def logged_in_with_product(logged_in):
     cart_page.click_cart()
     
     cart_page.empty_cart()
-    
-    cart_page.close_ad()
-
+   
     products_page = ProductsPage(logged_in)
 
-    # products_page.click_products()
-
-    logged_in.goto("https://www.automationexercise.com/products")
-
-    if "google_vignette" in logged_in.url:
-        cart_page.close_ad()
+    products_page.click_products()
 
     products_page.add_product_to_cart("Blue Top")
 

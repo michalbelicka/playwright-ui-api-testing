@@ -12,24 +12,20 @@ class CartPage:
         return self.page.locator(".text-center", has_text="Cart is empty!")
 
     def empty_cart(self):
-        delete_buttons = self.page.locator(".cart_quantity_delete")
+        delete_buttons = self.page.locator(".cart_quantity_delete").filter(visible=True).first
 
         while delete_buttons.count() > 0:
-            current_count = delete_buttons.count()
+            try:
+                delete_buttons.click(force=True)
 
-            delete_buttons.first.click(force=True)
+                self.page.wait_for_load_state("networkidle")
 
-            self.page.wait_for_load_state("networkidle")
+            except Exception:
+                break
 
 
     def product_in_cart(self, product_name):
         return self.page.locator(".cart_description", has_text=product_name)
-
-    def close_ad(self):
-        close_button = self.page.locator(".continue-prompt-text").get_by_text("Close")
-
-        if close_button.is_visible():
-            close_button.click()
 
     def remove_product(self, product_name):
         product = self.page.locator("#cart_info", has_text=product_name)
