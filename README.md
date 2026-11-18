@@ -108,6 +108,8 @@ The workflow:
 
 This helps verify that tests continue to pass after code changes and makes it easier to investigate test failures.
 
+> **Note:** Since tests run against a public demo site (`automationexercise.com`), occasional failures may occur due to external `503 Service Unavailable` ("under heavy load") errors, despite implemented ad-blocking and automatic retry mechanisms (`pytest-rerunfailures`).
+
 ## Future Improvements
 
 - Expand API test coverage
