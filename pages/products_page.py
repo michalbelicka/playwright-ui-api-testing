@@ -12,6 +12,8 @@ class ProductsPage:
 
     def add_product_to_cart(self, product_name):
         product = self.page.locator(".productinfo").filter(has_text=product_name)
+        product.scroll_into_view_if_needed()
+        product.hover()
         product.get_by_text("Add to cart").click()
 
     def added_heading(self):
