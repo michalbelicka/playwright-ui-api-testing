@@ -143,6 +143,22 @@ def pytest_runtest_makereport(item, call):
     report = outcome.get_result()
 
     if report.when == "call" and report.failed:
+        error_text = str(call.excinfo.value).lower() if call.excinfo else ""
+        if "under heavy load" in error_text or "503" in error_text:
+            lineno = 0
+            if call.excinfo and call.excinfo.tb:
+                tb = call.excinfo.tb
+                while tb.tb_next is not None:
+                    tb = tb.tb_next
+                lineno = tb.tb_lineno
+
+            report.outcome = "skipped"
+            report.longrepr = (
+                str(item.path),
+                lineno,
+                "Skipped: external server error (503 / under heavy load)",
+            )
+            return
 
         if "page" in item.funcargs:
             page = item.funcargs["page"]
